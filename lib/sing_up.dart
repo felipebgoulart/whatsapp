@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mob_whatsapp/home.dart';
-import 'package:mob_whatsapp/model/user.dart';
+import 'package:mob_whatsapp/models/user.dart';
+import 'package:mob_whatsapp/routes/routes.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({ Key? key }) : super(key: key);
@@ -54,18 +55,17 @@ class _SignUpState extends State<SignUp> {
     FirebaseAuth.instance
       .createUserWithEmailAndPassword(
         email: user.email,
-        password: user.password
+        password: user.password ?? ''
       ).then((UserCredential firebaseUser) {
         FirebaseFirestore db = FirebaseFirestore.instance;
         db.collection('users')
           .doc(firebaseUser.user!.uid)
         .set(user.toMap());
 
-        Navigator.push(
+        Navigator.pushNamedAndRemoveUntil(
           context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => const Home()
-          )
+          Routes.home,
+          (_) => false
         );
       }).catchError((onError) {
         setState(() => {

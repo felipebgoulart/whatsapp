@@ -2,18 +2,22 @@ class UserModel {
 
   String? name;
   String email;
-  String password;
+  String? password;
+  String? imageUrl;
 
   UserModel({
     this.name,
     required this.email,
-    required this.password
+    this.password,
+    this.imageUrl
   });
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'name': name,
-      'email': email
+      'email': email,
+      'password': password,
+      'imageUrl': imageUrl
     };
 
     return map;

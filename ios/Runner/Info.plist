@@ -14,6 +14,10 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>mob_whatsapp</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Use the library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Use the camera</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

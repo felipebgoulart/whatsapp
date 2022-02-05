@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:mob_whatsapp/model/chat.dart';
+import 'package:mob_whatsapp/models/chat.dart';
 
 class Chats extends StatefulWidget {
   const Chats({ Key? key }) : super(key: key);
@@ -40,18 +39,14 @@ class _ChatsState extends State<Chats> {
   ];
 
   Future<String> _getDownloadUri(String name) async {
-    Reference ref = FirebaseStorage.instance.ref('profile/perfil5.jpg');
-    ref.delete();
+    Reference ref = FirebaseStorage.instance.refFromURL(name);
+    String url = await ref.getDownloadURL();
 
-    print(ref);
-
-
-    return '';
+    return url;
   }
 
   @override
   Widget build(BuildContext context) {
-    _getDownloadUri('gs://mob-whatsapp.appspot.com/profile/perfil5.jpg');
     return ListView.builder(
       itemCount: chatList.length,
       itemBuilder: (BuildContext context, int index) {
@@ -59,10 +54,22 @@ class _ChatsState extends State<Chats> {
 
         return ListTile(
           contentPadding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-          leading: CircleAvatar(
-            maxRadius: 30,
-            backgroundColor: Colors.grey,
-            // backgroundImage: NetworkImage(chat.photoPath),
+          leading: FutureBuilder(
+            future: _getDownloadUri(chat.photoPath),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return CircleAvatar(
+                  maxRadius: 30,
+                  backgroundColor: Colors.grey,
+                  backgroundImage: NetworkImage(snapshot.data),
+                );
+              } else {
+                return const CircleAvatar(
+                  maxRadius: 30,
+                  backgroundColor: Colors.grey,
+                );
+              }
+            }
           ),
           title: Text(
             chat.name,

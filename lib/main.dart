@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mob_whatsapp/login.dart';
+import 'package:mob_whatsapp/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,8 @@ void main() async {
         primaryColor: const Color(0xff25D366),
         accentColor: const Color(0xff075E54)
       ),
+      initialRoute: '/',
+      onGenerateRoute: Routes.getRoutes,
       debugShowCheckedModeBanner: false,
     )
   );

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mob_whatsapp/home.dart';
-import 'package:mob_whatsapp/model/user.dart';
+import 'package:mob_whatsapp/models/user.dart';
+import 'package:mob_whatsapp/routes/routes.dart';
 import 'package:mob_whatsapp/sing_up.dart';
 
 class Login extends StatefulWidget {
@@ -31,11 +32,9 @@ class _LoginState extends State<Login> {
     User? user = auth.currentUser;
 
     if (user != null) {
-      Navigator.pushReplacement(
+      Navigator.pushReplacementNamed(
         context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Home()
-        )
+        Routes.home
       );
     }
   }
@@ -70,13 +69,11 @@ class _LoginState extends State<Login> {
 
     auth.signInWithEmailAndPassword(
       email: user.email,
-      password: user.password
+      password: user.password ?? ''
     ).then((UserCredential firebaseUser) => {
-      Navigator.pushReplacement(
+      Navigator.pushReplacementNamed(
         context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Home()
-        )
+        Routes.home
       )
     }).catchError((onError) {
       setState(() {
@@ -167,11 +164,9 @@ class _LoginState extends State<Login> {
                 Center(
                   child: GestureDetector(
                     onTap: () => {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => const SignUp()
-                        )
+                        Routes.signup
                       )
                     },
                     child: const Text(
