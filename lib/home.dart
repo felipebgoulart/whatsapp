@@ -18,10 +18,23 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _isUserSigned();
     _controllerTab = TabController(
       length: 2,
       vsync: this
     );
+  }
+
+  Future _isUserSigned() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+
+    if (user == null) {
+      Navigator.pushReplacementNamed(
+        context,
+        Routes.login
+      );
+    }
   }
 
   void onItemSelected(String item) {
@@ -53,7 +66,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).accentColor,
         title: const Text('Whatsapp'),
         bottom: TabBar(
           controller: _controllerTab,

@@ -1,11 +1,13 @@
 class UserModel {
 
+  String? id;
   String? name;
   String email;
   String? password;
   String? imageUrl;
 
   UserModel({
+    this.id,
     this.name,
     required this.email,
     this.password,

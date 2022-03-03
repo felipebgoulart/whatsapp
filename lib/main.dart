@@ -11,8 +11,11 @@ void main() async {
     MaterialApp(
       home: const Login(),
       theme: ThemeData(
-        primaryColor: const Color(0xff25D366),
-        accentColor: const Color(0xff075E54)
+        primaryColor: const Color(0xff075E54),
+        accentColor: const Color(0xff25D366),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xff075E54), //use your hex code here
+        ),
       ),
       initialRoute: '/',
       onGenerateRoute: Routes.getRoutes,

@@ -32,12 +32,14 @@ class _ContactsState extends State<Contacts> {
     QuerySnapshot querySnapshot = await store.collection('users').get();
     List<UserModel> userList = [];
 
+
     for (DocumentSnapshot item in querySnapshot.docs) {
       dynamic data = item.data();
 
       if (data['email'] == _currentEmail) continue;
 
       UserModel user = UserModel(
+        id: item.id,
         name: data['name'],
         email: data['email'],
         imageUrl: data['imageUrl']
@@ -81,7 +83,7 @@ class _ContactsState extends State<Contacts> {
           case ConnectionState.active:
           case ConnectionState.done:
             return ListView.builder(
-              itemCount: snapshot.data!.length,
+              itemCount: snapshot.data?.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
                 List<UserModel>? userList = snapshot.data;
                 UserModel user = userList![index];
