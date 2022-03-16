@@ -4,12 +4,14 @@
   String? message;
   String? urlImage;
   String type;
+  String? date;
 
   MessageModel({
     required this.idUser,
     this.message,
     this.urlImage,
-    required this.type
+    required this.type,
+    this.date
   });
 
   Map<String, dynamic> toMap() {
@@ -17,7 +19,8 @@
       'idUser': idUser,
       'message': message,
       'urlImage': urlImage,
-      'type': type
+      'type': type,
+      'date': date
     };
 
     return map;

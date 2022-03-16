@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mob_whatsapp/configuration.dart';
-import 'package:mob_whatsapp/home.dart';
-import 'package:mob_whatsapp/login.dart';
-import 'package:mob_whatsapp/messages.dart';
-import 'package:mob_whatsapp/sing_up.dart';
-import 'package:mob_whatsapp/models/user.dart';
+import 'package:mob_whatsapp/pages/contacts/contacts_page.dart';
+import 'package:mob_whatsapp/pages/home/home.dart';
+import 'package:mob_whatsapp/pages/login/country_page.dart';
+import 'package:mob_whatsapp/pages/login/login_page.dart';
+import 'package:mob_whatsapp/pages/messages/messages_page.dart';
 
 class Routes {
 
   static const String home = '/home';
+  static const String country = '/country';
+  static const String contacts = '/contacts';
+
   static const String signup = '/signup';
   static const String login = '/login';
   static const String configuration = '/configuration';
@@ -20,15 +23,19 @@ class Routes {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (_) => const Login()
+          builder: (_) => const LoginPage()
+        );
+      case country:
+        return MaterialPageRoute(
+          builder: (_) => CountryPage(countries: args)
         );
       case login:
         return MaterialPageRoute(
-          builder: (_) => const Login()
+          builder: (_) => const LoginPage()
         );
-      case signup:
+      case contacts:
         return MaterialPageRoute(
-          builder: (_) => const SignUp()
+          builder: (_) => const ContactsPage()
         );
       case home:
         return MaterialPageRoute(
@@ -40,7 +47,7 @@ class Routes {
         );
       case messages:
         return MaterialPageRoute(
-          builder: (_) => Messages(contact: args)
+          builder: (_) => MessagesPage(contact: args)
         );
       default:
         return _notFound();

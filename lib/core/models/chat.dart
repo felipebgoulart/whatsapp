@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class Chat {
 
@@ -9,6 +8,7 @@ class Chat {
   String message;
   String photoPath;
   String type;
+  DateTime dateTime;
 
   Chat({
     required this.idSender,
@@ -16,8 +16,21 @@ class Chat {
     required this.name,
     required this.message,
     required this.photoPath,
-    required this.type
+    required this.type,
+    required this.dateTime
   });
+
+  factory Chat.fromJson(Map<String, dynamic> json) {
+    return Chat(
+      idSender: json['idSender'] ?? '',
+      idReceiver: json['idReceiver'] ?? '',
+      name: json['name'] ?? '',
+      message: json['message'] ?? '',
+      photoPath: json['photoPath'] ?? '',
+      type: json['type'] ?? '',
+      dateTime: json['dateTime'] ?? DateTime.now()
+    );
+  }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
